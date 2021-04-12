@@ -25,9 +25,10 @@ add_todo() {
     username=$1
     todo=$2
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
-INSERT INTO "user" (name) VALUES ('$username')
+INSERT INTO "todo" (user_id, task, done) VALUES
+((SELECT user_id FROM "user" WHERE name='$username'), '$todo', false)
 EOF
-
+    echo "$todo added to user $username"
 }
 
 main() {
