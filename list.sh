@@ -35,7 +35,14 @@ EOF
 }
 
 main() {
-    if [[ "$1" == "list-users" ]]
+    if [[ "$#" -eq 0 ]]
+    then
+      echo "Missing arguments:
+            list.sh [arguments] [username]
+            - list-todos
+            - list-user
+            - list-user-todo [username]"
+    elif [[ "$1" == "list-users" ]]
     then
         list_users
     elif [[ "$1" == "list-todos" ]]
