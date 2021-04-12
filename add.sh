@@ -14,7 +14,10 @@ DATABASE="todo-test"
 export PGPASSWORD=${PSQL_PASSWORD}
 
 add_user() {
-    echo "User: $1"
+  username=$1
+    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+INSERT INTO "user" (name) VALUES ($username)
+EOF
 }
 
 add_todo() {
