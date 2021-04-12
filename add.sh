@@ -16,7 +16,7 @@ export PGPASSWORD=${PSQL_PASSWORD}
 add_user() {
   username=$1
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
-INSERT INTO "user" (name) VALUES ($username)
+INSERT INTO "user" (name) VALUES ('$username')
 EOF
 }
 
