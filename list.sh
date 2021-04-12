@@ -22,7 +22,7 @@ EOF
 
 list_todos() {
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
-    SELECT task FROM "todo" WHERE
+    SELECT task FROM "todo"
 EOF
 }
 
