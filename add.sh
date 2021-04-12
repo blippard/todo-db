@@ -10,17 +10,35 @@
 #    add.sh add-todo Paul "Make breakfast"
 #
 
+DATABASE="todo-test"
+export PGPASSWORD=${PSQL_PASSWORD}
+
 add_user() {
-    echo "User: $1"
+  username=$1
+    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+INSERT INTO "user" (name) VALUES ('$username')
+EOF
+    echo "user added: $username"
 }
 
 add_todo() {
-    echo "User: $1"
-    echo "Todo: $2"
+    username=$1
+    todo=$2
+    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+INSERT INTO "todo" (user_id, task, done) VALUES
+((SELECT user_id FROM "user" WHERE name='$username'), '$todo', false)
+EOF
+    echo "$todo added to user $username"
 }
 
 main() {
-    if [[ "$1" == "add-user" ]]
+    if [[ "$#" -lt 2 ]]
+    then
+      echo "Missing arguments:
+            add.sh [arguments] [username] [todo]
+            - add-user [username]
+            - add-todo [username] [todo]"
+    elif [[ "$1" == "add-user" ]]
     then
         add_user "$2"
     elif [[ "$1" == "add-todo" ]]
