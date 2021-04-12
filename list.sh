@@ -27,7 +27,9 @@ EOF
 }
 
 list_user_todos() {
-    echo "User: $1"
+    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+    SELECT name, task FROM "todo" JOIN "user" u on u.user_id = todo.user_id
+EOF
 }
 
 main() {
