@@ -14,7 +14,7 @@
 DATABASE="todo-test"
 USERNAME="arlana"
 HOSTNAME="localhost"
-export PGPASSWORD="Berlin86"
+export PGPASSWORD=${PSQL_PASSWORD}
 
 list_users() {
     psql -h $HOSTNAME -U $USERNAME $DATABASE <<EOF
