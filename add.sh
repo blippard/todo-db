@@ -18,11 +18,16 @@ add_user() {
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
 INSERT INTO "user" (name) VALUES ('$username')
 EOF
+    echo "user added: $user"
 }
 
 add_todo() {
-    echo "User: $1"
-    echo "Todo: $2"
+    username=$1
+    todo=$2
+    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+INSERT INTO "user" (name) VALUES ('$username')
+EOF
+
 }
 
 main() {
