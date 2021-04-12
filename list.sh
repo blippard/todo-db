@@ -11,8 +11,13 @@
 #    list.sh list-user-todos "John Doe"
 #
 
+DATABASE="todo-test"
+USERNAME="arlana"
+HOSTNAME="localhost"
+export PGPASSWORD="Berlin86"
+
 list_users() {
-    psql <<EOF
+    psql -h $HOSTNAME -U $USERNAME $DATABASE <<EOF
 SELECT * FROM "user"
 EOF
 }
