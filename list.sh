@@ -12,18 +12,18 @@
 #
 
 DATABASE="todo-test"
-USERNAME="arlana"
-HOSTNAME="localhost"
 export PGPASSWORD=${PSQL_PASSWORD}
 
 list_users() {
-    psql -h $HOSTNAME -U $USERNAME $DATABASE <<EOF
+    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
 SELECT * FROM "user"
 EOF
 }
 
 list_todos() {
-    echo "Your code"
+    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+    SELECT task FROM "todo"
+EOF
 }
 
 list_user_todos() {
