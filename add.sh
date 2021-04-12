@@ -32,7 +32,13 @@ EOF
 }
 
 main() {
-    if [[ "$1" == "add-user" ]]
+    if [[ "$#" -lt 2 ]]
+    then
+      echo "Missing arguments:
+            add.sh [arguments] [username] [todo]
+            - add-user [username]
+            - add-todo [username] [todo]"
+    elif [[ "$1" == "add-user" ]]
     then
         add_user "$2"
     elif [[ "$1" == "add-todo" ]]
