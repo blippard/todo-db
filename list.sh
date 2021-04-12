@@ -22,13 +22,15 @@ EOF
 
 list_todos() {
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
-    SELECT task FROM "todo"
+    SELECT task FROM "todo" WHERE
 EOF
 }
 
 list_user_todos() {
+  user=$1
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
     SELECT name, task FROM "todo" JOIN "user" u on u.user_id = todo.user_id
+    WHERE name ILIKE '$user%'
 EOF
 }
 
