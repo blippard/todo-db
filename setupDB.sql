@@ -31,7 +31,7 @@ ALTER TABLE ONLY "todo"
 -- Connect 'todos.user_id' with 'user.id'
 ALTER TABLE ONLY "todo"
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id)
-        REFERENCES user (user_id) ON DELETE CASCADE;
+        REFERENCES "user" (user_id) ON DELETE CASCADE;
 
     -- Filling tables --
 
