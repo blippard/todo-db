@@ -1,18 +1,18 @@
-    -- Removing tables --
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS todo;
+-- Removing tables --
+DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS "todo";
 
 -- Tables --
 
 -- Creating user table
-CREATE TABLE user
+CREATE TABLE "user"
 (
-    id          SERIAL NOT NULL PRIMARY KEY,
+    user_id     SERIAL NOT NULL PRIMARY KEY,
     name        VARCHAR(50) NOT NULL
 );
 
 -- Creating todos table
-CREATE TABLE todo
+CREATE TABLE "todo"
 (
     id          SERIAL NOT NULL PRIMARY KEY,
     task        VARCHAR(100) NOT NULL,
@@ -20,18 +20,18 @@ CREATE TABLE todo
     done        BOOLEAN NOT NULL
 );
 
-    -- Removing foreign keys --
+-- Removing foreign keys --
 
 -- Remove FK user_id
-ALTER TABLE ONLY todo
+ALTER TABLE ONLY "todo"
     DROP CONSTRAINT IF EXISTS user_id;
 
 -- Adding foreign keys --
 
 -- Connect 'todos.user_id' with 'user.id'
-ALTER TABLE ONLY todo
+ALTER TABLE ONLY "todo"
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id)
-        REFERENCES user (id) ON DELETE CASCADE;
+        REFERENCES user (user_id) ON DELETE CASCADE;
 
     -- Filling tables --
 
