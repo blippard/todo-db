@@ -17,8 +17,16 @@ CREATE TABLE "todo"
     id          SERIAL NOT NULL PRIMARY KEY,
     task        VARCHAR(100) NOT NULL,
     user_id     INT NOT NULL,
-    done        BOOLEAN NOT NULL
+    done        BOOLEAN NOT NULL,
+    todo_id     serial not null
 );
+
+create unique index "todo-test_todo_id_uindex"
+    on "todo" (todo_id);
+
+alter table "todo"
+    add constraint "todo-test_pk"
+        primary key (todo_id);
 
 -- Removing foreign keys --
 
