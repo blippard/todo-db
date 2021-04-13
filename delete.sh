@@ -14,9 +14,9 @@ DATABASE="tododb"
 export PGPASSWORD=${PSQL_PASSWORD}
 
 delete_todo() {
-  todo-id=$1
+  todo_id="$1"
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
-DELETE FROM "todo" WHERE todo_id='$todo-id'
+DELETE FROM "todo" WHERE todo_id=$todo_id
 EOF
     echo "Todo removed"
 }
@@ -35,7 +35,7 @@ main() {
             delet.sh [arguments]
             - delete-todo [todo_id]
             - delete-done"
-    elif [ "$#" -gt 0 ] && [ "$1" == "delete-todo" ];
+    elif [ "$#" -gt 0 ] && [ "$#" -lt 2 ];
     then
       echo "Missing argument:
             - delete-todo [todo_id]"
