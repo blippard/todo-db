@@ -11,7 +11,7 @@
 #    list.sh list-user-todos "John Doe"
 #
 
-DATABASE="todo-test"
+DATABASE="tododb"
 export PGPASSWORD=${PSQL_PASSWORD}
 
 list_users() {
