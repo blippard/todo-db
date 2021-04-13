@@ -22,14 +22,14 @@ EOF
 
 list_todos() {
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
-    SELECT task FROM "todo"
+    SELECT todo_id AS id, task, CASE WHEN done = TRUE THEN 'done' ELSE 'in progress' END AS status FROM "todo"
 EOF
 }
 
 list_user_todos() {
   user=$1
     psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
-    SELECT name, task, todo_id FROM "todo" JOIN "user" u on u.user_id = todo.user_id
+    SELECT name, task, todo_id AS id, CASE WHEN done = TRUE THEN 'done' ELSE 'in progress' END AS status FROM "todo" JOIN "user" u on u.user_id = todo.user_id
     WHERE name ILIKE '$user%'
 EOF
 }
