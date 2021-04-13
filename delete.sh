@@ -35,10 +35,6 @@ main() {
             delet.sh [arguments]
             - delete-todo [todo_id]
             - delete-done"
-    elif [ "$#" -gt 0 ] && [ "$#" -lt 2 ];
-    then
-      echo "Missing argument:
-            - delete-todo [todo_id]"
     elif [[ "$1" == "delete-todo" ]]
     then
         delete_todo "$2"
