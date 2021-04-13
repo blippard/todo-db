@@ -32,7 +32,7 @@ main() {
     if [[ "$#" -lt 1 ]]
     then
       echo "Missing arguments:
-            delet.sh [arguments]
+            delete.sh [arguments]
             - delete-todo [todo_id]
             - delete-done"
     elif [[ "$1" == "delete-todo" ]]
