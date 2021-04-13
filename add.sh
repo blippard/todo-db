@@ -10,7 +10,7 @@
 #    add.sh add-todo Paul "Make breakfast"
 #
 
-DATABASE="todo-test"
+DATABASE="tododb"
 export PGPASSWORD=${PSQL_PASSWORD}
 
 add_user() {

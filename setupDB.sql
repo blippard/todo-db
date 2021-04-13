@@ -14,7 +14,7 @@ CREATE TABLE "user"
 -- Creating todos table
 CREATE TABLE "todo"
 (
-    id          SERIAL NOT NULL PRIMARY KEY,
+    todo_id     SERIAL NOT NULL PRIMARY KEY,
     task        VARCHAR(100) NOT NULL,
     user_id     INT NOT NULL,
     done        BOOLEAN NOT NULL
