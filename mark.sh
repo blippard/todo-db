@@ -13,20 +13,31 @@ export PGPASSWORD=${PSQL_PASSWORD}
 
 mark() {
   todo_id=$1
-  psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+  psql -h "${PSQL_HOST}" -U "${PSQL_USER_NAME}" $DATABASE  -v ON_ERROR_STOP=1 2> /dev/null <<EOF
   UPDATE "todo" SET "done" = TRUE WHERE "todo_id" = $todo_id
 EOF
-  todo_task=`psql -X -A -d $DATABASE -U ${PSQL_USER_NAME} -h localhost -p 5432 -t -c "SELECT task FROM "todo" WHERE "todo_id"=$todo_id"`
-echo "TODO: $todo_task - Marked as done"
+  todo_task=$(psql -X -A -d $DATABASE -U "${PSQL_USER_NAME}" -h localhost -p 5432 -t -c "SELECT task FROM "todo" WHERE "todo_id"=$todo_id")
+
+  if [[ "$?" -eq 3 ]]; then
+    echo "No todo found with ID $todo_id"
+  else
+    echo "echo TODO: $todo_task - Marked as done"
+  fi
 }
 
 unmark() {
   todo_id=$1
-  psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+  psql -h "${PSQL_HOST}" -U "${PSQL_USER_NAME}" $DATABASE  -v ON_ERROR_STOP=1 2> /dev/null <<EOF
   UPDATE "todo" SET "done" = FALSE WHERE "todo_id" = $todo_id
 EOF
-  todo_task=`psql -X -A -d $DATABASE -U ${PSQL_USER_NAME} -h localhost -p 5432 -t -c "SELECT task FROM "todo" WHERE "todo_id"=$todo_id"`
-echo "TODO: $todo_task - Marked as *not* done"
+  todo_task=$(psql -X -A -d $DATABASE -U ${PSQL_USER_NAME} -h localhost -p 5432 -t -c "SELECT task FROM "todo" WHERE "todo_id"=$todo_id")
+  echo "TODO: $todo_task - Marked as *not* done"
+
+  if [[ "$?" -eq 3 ]]; then
+    echo "No todo found with ID $todo_id"
+  else
+    echo "TODO: $todo_task - Marked as *not* done"
+  fi
 }
 
 main() {
