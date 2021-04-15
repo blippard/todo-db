@@ -22,13 +22,13 @@ EOF
 }
 
 add_todo() {
-    username=$1
-    todo=$2
+    username="$1"
+    todo="$2"
     psql -h "${PSQL_HOST}" -U "${PSQL_USER_NAME}" $DATABASE -v ON_ERROR_STOP=1 2> /dev/null <<EOF
 INSERT INTO "todo" (user_id, task, done) VALUES
 ((SELECT user_id FROM "user" WHERE name='$username'), '$todo', false)
 EOF
-  if [[ "$?" -eq 3 ]]; then
+  if [[ "$?" -eq 2 ]]; then
     echo "No user named $username found. Please add user first with ./add.sh add-user [username] before adding todos."
   else
     echo "$todo added to user $username"
