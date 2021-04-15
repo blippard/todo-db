@@ -28,9 +28,9 @@ help() {
 
 main() {
   if [[ "$1" == "list-users" ]]; then
-    ./list.sh "$2"
+    ./list.sh "$2" "$3"
   elif [[ "$1" == "add" ]]; then
-    ./add.sh "$2" "$3"
+    ./add.sh "$2" "$3" "$4"
   elif [[ "$1" == "mark-todos" ]]; then
     ./mark.sh "$2" "$3"
   elif [[ "$1" == "delete" ]]; then
