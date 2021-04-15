@@ -15,17 +15,27 @@ export PGPASSWORD=${PSQL_PASSWORD}
 
 delete_todo() {
   todo_id="$1"
-    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+    psql -h "${PSQL_HOST}" -U "${PSQL_USER_NAME}" $DATABASE  -v ON_ERROR_STOP=1 2> /dev/null <<EOF
 DELETE FROM "todo" WHERE todo_id=$todo_id
 EOF
+
+  if [[ "$?" -eq 3 ]]; then
+    echo "No todo found with ID: $todo_id"
+  else
     echo "Todo removed"
+  fi
 }
 
 delete_done() {
-    psql -h ${PSQL_HOST} -U ${PSQL_USER_NAME} $DATABASE <<EOF
+    psql -h "${PSQL_HOST}" -U "${PSQL_USER_NAME}" $DATABASE  -v ON_ERROR_STOP=1 2> /dev/null <<EOF
 DELETE FROM "todo" WHERE done=TRUE
 EOF
-    echo "Done todos removed"
+
+  if [[ "$?" -eq 3 ]]; then
+    echo "No done status todos found"
+  else
+    echo "All done status todos removed"
+  fi
 }
 
 main() {
