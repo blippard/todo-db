@@ -28,13 +28,13 @@ help() {
 
 main() {
   if [[ "$1" == "list-users" ]]; then
-    ./list.sh "$1"
+    ./list.sh "$2"
   elif [[ "$1" == "add" ]]; then
-    ./add.sh "$1" "$2"
+    ./add.sh "$2" "$3"
   elif [[ "$1" == "mark-todos" ]]; then
-    ./mark.sh "$1" "$2"
+    ./mark.sh "$2" "$3"
   elif [[ "$1" == "delete" ]]; then
-    ./delete.sh "$1" "$2"
+    ./delete.sh "$2" "$3"
   elif [[ "$1" == "help" ]]; then
     help
   else
