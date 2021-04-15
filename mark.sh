@@ -31,7 +31,6 @@ unmark() {
   UPDATE "todo" SET "done" = FALSE WHERE "todo_id" = $todo_id
 EOF
   todo_task=$(psql -X -A -d $DATABASE -U ${PSQL_USER_NAME} -h localhost -p 5432 -t -c "SELECT task FROM "todo" WHERE "todo_id"=$todo_id")
-  echo "TODO: $todo_task - Marked as *not* done"
 
   if [[ "$?" -eq 3 ]]; then
     echo "No todo found with ID $todo_id"
